@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 
 def get_birthday(person):
-    name_cleaned = person.lower().replace(" ", "-")
+    name_cleaned = person.lower().replace(" ", "-").replace("'", "-")
 
     url = "https://www.famousbirthdays.com/people/" + name_cleaned + ".html"
     response = requests.get(url)
@@ -15,9 +15,11 @@ def get_birthday(person):
         month = main_div.find("span", {"class": "hidden-sm"})
         day = main_div.find("a")
         year = main_div.find_all("a")
-        print(person, "'s Birthday is on: ", month.text, " ", day.text[-2:], ", ", year[-1].text, sep='')
+        print(person, "'s Birthday is on: ", month.text, " ",
+              day.text[-2:], ", ", year[-1].text, sep='')
     except:
         print("Sorry!", person, "is not in our database...")
+
 
 def get_people(date):
     clean_date = date.lower().replace(" ", "")
@@ -25,32 +27,37 @@ def get_people(date):
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
 
-    main_div = soup.find("div", {"class":"list-page"})
+    main_div = soup.find("div", {"class": "list-page"})
 
     try:
-        first_row = main_div.find_all("div", {"class":"row"})
-        names = first_row[1].find_all("div", {"class":"name"})
+        first_row = main_div.find_all("div", {"class": "row"})
+        names = first_row[1].find_all("div", {"class": "name"})
         for elem in names:
             print(elem.text.strip())
     except:
         print("Sorry! That does not look like a valid date...")
-        
+
+
 def get_profession_birthdays(profession, limit):
     profession_cleaned = profession.lower().replace(" ", "")
     url = "https://www.famousbirthdays.com/profession/" + profession_cleaned + ".html"
 
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    people = soup.find_all("div", {"class": "name"})
+
     try:
         response = requests.get(url)
         soup = BeautifulSoup(response.content, 'html.parser')
-
         people = soup.find_all("div", {"class": "name"})
 
-        for i in range(limit):
+        for i in range(int(limit)):
             data = people[i].text
             person = data.split(",")[0]
-            get_birthday(person)
+            get_birthday(person.strip())
     except:
         print("Sorry!", profession, "is not in our database...")
+
 
 def main():
 

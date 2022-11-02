@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
+
 def get_birthday(person):
     name_cleaned = person.lower().replace(" ", "-")
 
@@ -8,10 +9,10 @@ def get_birthday(person):
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
 
-    main_div = soup.find("div", {"class":"stat box"})
+    main_div = soup.find("div", {"class": "stat box"})
 
-    try: 
-        month = main_div.find("span", {"class":"hidden-sm"})
+    try:
+        month = main_div.find("span", {"class": "hidden-sm"})
         day = main_div.find("a")
         year = main_div.find_all("a")
         print(person, "'s Birthday is on: ", month.text, " ", day.text[-2:], ", ", year[-1].text, sep='')
@@ -33,6 +34,23 @@ def get_people(date):
             print(elem.text.strip())
     except:
         print("Sorry! That does not look like a valid date...")
+        
+def get_profession_birthdays(profession, limit):
+    profession_cleaned = profession.lower().replace(" ", "")
+    url = "https://www.famousbirthdays.com/profession/" + profession_cleaned + ".html"
+
+    try:
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        people = soup.find_all("div", {"class": "name"})
+
+        for i in range(limit):
+            data = people[i].text
+            person = data.split(",")[0]
+            get_birthday(person)
+    except:
+        print("Sorry!", profession, "is not in our database...")
 
 def main():
 
@@ -49,10 +67,15 @@ def main():
     if option == "1":
         name = input("Enter a famous person's name to see their birthday: ")
         get_birthday(name)
+    elif option == "3":
+        profession = input("Enter a profession: ")
+        limit = input("Enter the desired number of records: ")
+        get_profession_birthdays(profession, limit)
     elif option == "2":
         date = input("Enter a date (Month Day): ")
         get_people(date)
     else:
         print("Coming soon to pyBirthdays!")
+
 
 main()

@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 
 def get_birthday(person):
-    name_cleaned = person.lower().replace(" ", "-")
+    name_cleaned = person.lower().replace(" ", "-").replace("'", "-")
 
     url = "https://www.famousbirthdays.com/people/" + name_cleaned + ".html"
     response = requests.get(url)
@@ -25,13 +25,17 @@ def get_profession_birthdays(profession, limit):
     profession_cleaned = profession.lower().replace(" ", "")
     url = "https://www.famousbirthdays.com/profession/" + profession_cleaned + ".html"
 
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    people = soup.find_all("div", {"class": "name"})
+
     try:
         response = requests.get(url)
         soup = BeautifulSoup(response.content, 'html.parser')
-
         people = soup.find_all("div", {"class": "name"})
 
         for i in range(limit):
+            print(people[i])
             data = people[i].text
             person = data.split(",")[0]
             get_birthday(person)

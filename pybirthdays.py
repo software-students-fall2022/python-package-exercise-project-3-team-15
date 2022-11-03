@@ -59,6 +59,27 @@ def get_profession_birthdays(profession, limit):
         print("Sorry!", profession, "is not in our database...")
 
 
+def search_by_birthsign(birth_sign, limit):
+    birth_sign_cleaned = birth_sign.lower()
+    url = "https://www.famousbirthdays.com/astrology/" + birth_sign_cleaned + ".html"
+
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    title = soup.find("title").text
+    if "Page Not Found" in title:
+        print("Sorry! The birth sign ", birth_sign, " doesn't exist! Please check if your spelling is correct.")
+    else:
+        people = soup.find_all("div", {"class": "name"})
+    
+        for i in range(int(limit)):
+            try:
+                data = people[i].text
+            except:
+                break
+            person = data.split(", ")[0]
+            get_birthday(person.strip())
+
+
 def main():
 
     welcome = '''Welcome to pyBirthdays! Select one of the following options: 
@@ -74,13 +95,18 @@ def main():
     if option == "1":
         name = input("Enter a famous person's name to see their birthday: ")
         get_birthday(name)
+    elif option == "2":
+        date = input("Enter a date (Month Day): ")
+        get_people(date)
     elif option == "3":
         profession = input("Enter a profession: ")
         limit = input("Enter the desired number of records: ")
         get_profession_birthdays(profession, limit)
-    elif option == "2":
-        date = input("Enter a date (Month Day): ")
-        get_people(date)
+    elif option == "4":
+        birth_sign = input("Enter a birth sign from the following 12: " + 
+        "Aries, Taurus, Gemini, Cancer, Leo, Virgo, Libra, Scorpio, Sagittarius, Capricorn, Aquarius and Pisces.\n")
+        limit = input("Enter the desired number of records: ")
+        search_by_birthsign(birth_sign, limit)
     else:
         print("Coming soon to pyBirthdays!")
 

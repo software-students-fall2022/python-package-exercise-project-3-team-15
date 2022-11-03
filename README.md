@@ -1,22 +1,29 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=9088688&assignment_repo_type=AssignmentRepo)
-# Python Package Exercise
 
-A little exercise to create a Python package, build it, test it, distribute it, and use it. See [instructions](./instructions.md) for details.
-
-Project Description
-
-## pyBirthdays
-
+# pyBirthdays
 Get to know all the famous people who have birthdays on a specific day (birthdays as a service)
 
-### Functions
+Insert Badge Here
 
-get_people(date): allow user to input date, return all the famous people who have birthdays on that date
+## Installation
+How a developer who wants to contribute to your project can set up the virtual environment, install dependencies, and build and test your package for themselves.
 
-get_birthday(person): allow user to input famous person name, return the birthday of that person if found
+## Usage
+How a developer who wants to import your project into their own code can do so - include documentation for all functions in your package and a link to an example Python program that uses each of them.
 
-get_profession_birthdays(profession, limit): allow user to input a profession and the desired number of outputs, return the top 'x' number of people's birthdays that fit into that profession (based on popularity ranking)
+`get_people(date)` Allow user to input date, return all the famous people who have birthdays on that date
 
-search_by_birthsign(birth_sign, limit): allow user to input a birth sign and the desired number of outputs, return the top 'x' number of people that have that birth sign (based on popularity ranking)
+`get_birthday(person)` Allow user to input famous person name, return the birthday of that person if found
 
+`get_profession_birthdays(profession, limit)` Allow user to input a profession and the desired number of outputs, return the top 'x' most popular famous people that have that profession and their birthdays
 
+`search_by_birthsign(birth_sign, limit)` Allow user to input a birth sign and the desired number of outputs, return the top 'x' most popular famous people that have that birth sign and their birthdays
+
+## PyPI Link
+Insert Link Here
+
+## Team Members
+- [Grace Zhang](https://github.com/gracezhang89)
+- [Ishana Goyal](https://github.com/ishana-goyal)
+- Laura Lourenco
+- [Mark Chen](https://github.com/markizenlee)

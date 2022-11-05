@@ -15,10 +15,16 @@ def get_birthday(person):
         month = main_div.find("span", {"class": "hidden-sm"})
         day = main_div.find("a")
         year = main_div.find_all("a")
-        print(person, "'s Birthday is on: ", month.text, " ",
-              day.text[-2:], ", ", year[-1].text, sep='')
+
+        result = person + "'s Birthday is on: " + month.text.strip() + " " + day.text[-2:] +  ", " + year[-1].text
+        # print(person, "'s Birthday is on: ", month.text, " ",
+        #       day.text[-2:], ", ", year[-1].text, sep='')
+
+        return result
     except:
-        print("Sorry!", person, "is not in our database...")
+        error_message = "Sorry! " + person + " is not in our database..."
+        return error_message
+        #print("Sorry!", person, "is not in our database...")
 
 
 def get_people(date):
@@ -32,10 +38,17 @@ def get_people(date):
     try:
         first_row = main_div.find_all("div", {"class": "row"})
         names = first_row[1].find_all("div", {"class": "name"})
+
+        result = list()
+
         for elem in names:
-            print(elem.text.strip())
+            result.append(elem.text.strip())
+            #print(elem.text.strip())
+        return result
     except:
-        print("Sorry! That does not look like a valid date...")
+        error_message = "Sorry! That does not look like a valid date..."
+        return error_message
+        # print("Sorry! That does not look like a valid date...")
 
 
 def get_profession_birthdays(profession, limit):
@@ -51,12 +64,18 @@ def get_profession_birthdays(profession, limit):
         soup = BeautifulSoup(response.content, 'html.parser')
         people = soup.find_all("div", {"class": "name"})
 
+        result_list = list()
         for i in range(int(limit)):
             data = people[i].text
             person = data.split(",")[0]
-            get_birthday(person.strip())
+            result = get_birthday(person.strip())
+            result_list.append(result)
+            
+        return result_list
     except:
-        print("Sorry!", profession, "is not in our database...")
+        error_message = "Sorry! " + profession + " is not in our database..."
+        return error_message
+        #print("Sorry!", profession, "is not in our database...")
 
 
 def search_by_birthsign(birth_sign, limit):
@@ -70,14 +89,19 @@ def search_by_birthsign(birth_sign, limit):
         print("Sorry! The birth sign ", birth_sign, " doesn't exist! Please check if your spelling is correct.")
     else:
         people = soup.find_all("div", {"class": "name"})
-    
+
+        result_list = list()
+
         for i in range(int(limit)):
             try:
                 data = people[i].text
             except:
                 break
             person = data.split(", ")[0]
-            get_birthday(person.strip())
+            result = get_birthday(person.strip())
+            result_list.append(result)
+        
+        return result_list
 
 
 def main():
@@ -94,21 +118,28 @@ def main():
 
     if option == "1":
         name = input("Enter a famous person's name to see their birthday: ")
-        get_birthday(name)
+        result = get_birthday(name)
+        return result
     elif option == "2":
         date = input("Enter a date (Month Day): ")
-        get_people(date)
+        result = get_people(date)
+        return result
     elif option == "3":
         profession = input("Enter a profession: ")
         limit = input("Enter the desired number of records: ")
-        get_profession_birthdays(profession, limit)
+        result = get_profession_birthdays(profession, limit)
+        return result
     elif option == "4":
         birth_sign = input("Enter a birth sign from the following 12: " + 
         "Aries, Taurus, Gemini, Cancer, Leo, Virgo, Libra, Scorpio, Sagittarius, Capricorn, Aquarius and Pisces.\n")
         limit = input("Enter the desired number of records: ")
-        search_by_birthsign(birth_sign, limit)
-    else:
-        print("Coming soon to pyBirthdays!")
+        result = search_by_birthsign(birth_sign, limit)
+        return result
 
+result = main()
 
-main()
+if isinstance(result, list):
+    for elem in result:
+        print(elem)
+else:
+    print(result)

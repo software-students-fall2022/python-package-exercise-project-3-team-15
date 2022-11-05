@@ -1,0 +1,24 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project] 
+name = "pybirthdayspackage"
+version = "1.0.0"
+authors = [
+  { name = "Grace Zhang" },
+  { name = "Ishana Goyal" },
+  { name = "Laura Mazoni" },
+  { name = "Mark Chen" }
+] 
+description = "A package that shows celebrities' birthdays"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+  "Programming Language :: Python :: 3.7",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+] 
+
+[project.urls]
+homepage = "https://github.com/software-students-fall2022/python-package-exercise-project-3-team-15/"

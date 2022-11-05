@@ -1,0 +1,34 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "3da1b558be4cdb2428567ee1eeffb82c4229f12a2111bdaa6bd8f32b03af61d2"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_version": "3.9"
+        },
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.org/simple",
+                "verify_ssl": true
+            },
+            {
+                "name": "testpypi",
+                "url": "https://test.pypi.org/simple/",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "pybirthdayspackage": {
+            "hashes": [
+                "sha256:210a18dd230832ba7bbb9c09feb0fb1163ad18105ace63c31cc12c2ada01f4e2",
+                "sha256:3a585587256075736ed5b5214db7544ed8bc5f1a366fe8dc4a840e2668b6c3b6"
+            ],
+            "index": "testpypi",
+            "version": "==1.0.0"
+        }
+    },
+    "develop": {}
+}

@@ -32,3 +32,14 @@ class Tests:
         expected = True  # the value we expect to be present
         actual = True  # the value we see in reality
         assert actual == expected, "Expected True to be equal to True!"
+
+    def test_get_birthdays(self):
+        '''verify that get_birthday() returns a non-empty string 
+        (either a person's birthday or an error message saying the person is not in the database)'''
+
+        # since get_birthday takes a person's name, test on multiple names (both those that exist, don't exist, and are formatted strangely)
+
+        for name in ['Justin Bieber', 'lisa KuDROw', 'John Applesmith', 'Derek Jeter', 'hasan minhaj']:
+            result = get_birthday(name)
+            assert isinstance(result, str), f"Expected get_birthday() to return a string. Instead, it returned {result}"
+            assert len(result) > 0, f"Expected get_birthday() not to be empty. Instead, it returned a string with {len(result)} characters"

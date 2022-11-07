@@ -3,7 +3,7 @@
 
 Get to know all the famous people who have birthdays on a specific day (birthdays as a service)
 
-Insert Badge Here
+![Badge](https://github.com/software-students-fall2022/python-package-exercise-project-3-team-15/actions/workflows/build.yaml/badge.svg)
 
 ## Installation
 

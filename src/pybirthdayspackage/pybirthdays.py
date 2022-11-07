@@ -16,7 +16,8 @@ def get_birthday(person):
         day = main_div.find("a")
         year = main_div.find_all("a")
 
-        result = person + "'s Birthday is on: " + month.text.strip() + " " + day.text[-2:] +  ", " + year[-1].text
+        result = person + "'s Birthday is on: " + \
+            month.text.strip() + " " + day.text[-2:] + ", " + year[-1].text
         # print(person, "'s Birthday is on: ", month.text, " ",
         #       day.text[-2:], ", ", year[-1].text, sep='')
 
@@ -43,7 +44,7 @@ def get_people(date):
 
         for elem in names:
             result.append(elem.text.strip())
-            #print(elem.text.strip())
+            # print(elem.text.strip())
         return result
     except:
         error_message = "Sorry! That does not look like a valid date..."
@@ -51,7 +52,7 @@ def get_people(date):
         # print("Sorry! That does not look like a valid date...")
 
 
-def get_profession_birthdays(profession, limit):
+def search_by_profession(profession, limit=5):
     profession_cleaned = profession.lower().replace(" ", "")
     url = "https://www.famousbirthdays.com/profession/" + profession_cleaned + ".html"
 
@@ -70,7 +71,7 @@ def get_profession_birthdays(profession, limit):
             person = data.split(",")[0]
             result = get_birthday(person.strip())
             result_list.append(result)
-            
+
         return result_list
     except:
         error_message = "Sorry! " + profession + " is not in our database..."
@@ -78,7 +79,7 @@ def get_profession_birthdays(profession, limit):
         #print("Sorry!", profession, "is not in our database...")
 
 
-def search_by_birthsign(birth_sign, limit):
+def search_by_birthsign(birth_sign, limit=5):
     birth_sign_cleaned = birth_sign.lower()
     url = "https://www.famousbirthdays.com/astrology/" + birth_sign_cleaned + ".html"
 
@@ -86,7 +87,8 @@ def search_by_birthsign(birth_sign, limit):
     soup = BeautifulSoup(response.content, 'html.parser')
     title = soup.find("title").text
     if "Page Not Found" in title:
-        print("Sorry! The birth sign ", birth_sign, " doesn't exist! Please check if your spelling is correct.")
+        print("Sorry! The birth sign ", birth_sign,
+              " doesn't exist! Please check if your spelling is correct.")
     else:
         people = soup.find_all("div", {"class": "name"})
 
@@ -100,7 +102,7 @@ def search_by_birthsign(birth_sign, limit):
             person = data.split(", ")[0]
             result = get_birthday(person.strip())
             result_list.append(result)
-        
+
         return result_list
 
 
@@ -127,14 +129,15 @@ def main():
     elif option == "3":
         profession = input("Enter a profession: ")
         limit = input("Enter the desired number of records: ")
-        result = get_profession_birthdays(profession, limit)
+        result = search_by_profession(profession, limit)
         return result
     elif option == "4":
-        birth_sign = input("Enter a birth sign from the following 12: " + 
-        "Aries, Taurus, Gemini, Cancer, Leo, Virgo, Libra, Scorpio, Sagittarius, Capricorn, Aquarius and Pisces.\n")
+        birth_sign = input("Enter a birth sign from the following 12: " +
+                           "Aries, Taurus, Gemini, Cancer, Leo, Virgo, Libra, Scorpio, Sagittarius, Capricorn, Aquarius and Pisces.\n")
         limit = input("Enter the desired number of records: ")
         result = search_by_birthsign(birth_sign, limit)
         return result
+
 
 result = main()
 

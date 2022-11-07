@@ -1,6 +1,7 @@
 import pytest
 from pybirthdayspackage import pybirthdays
 
+
 class Tests:
 
     #

@@ -22,3 +22,6 @@ classifiers = [
 
 [project.urls]
 homepage = "https://github.com/software-students-fall2022/python-package-exercise-project-3-team-15/"
+
+[project.scripts]
+pybirthdays = "pybirthdays.__main__:main"

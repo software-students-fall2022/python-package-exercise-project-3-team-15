@@ -27,7 +27,9 @@
                 "sha256:3a585587256075736ed5b5214db7544ed8bc5f1a366fe8dc4a840e2668b6c3b6"
             ],
             "index": "testpypi",
-            "version": "==1.0.0"
+            "version": "==1.0.0",
+            "path": ".",
+            "editable":true
         }
     },
     "develop": {}

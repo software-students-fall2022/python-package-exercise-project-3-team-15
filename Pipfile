@@ -10,6 +10,7 @@ name = "testpypi"
 
 [packages]
 pytest = "*"
+requests = "*"
 pybirthdayspackage = {editable = true, path = "."}
 
 [dev-packages]

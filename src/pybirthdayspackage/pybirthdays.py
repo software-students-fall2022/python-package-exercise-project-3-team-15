@@ -58,21 +58,23 @@ def search_by_profession(profession, limit=5):
 
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
-    people = soup.find_all("div", {"class": "name"})
 
     try:
-        response = requests.get(url)
-        soup = BeautifulSoup(response.content, 'html.parser')
-        people = soup.find_all("div", {"class": "name"})
+        title = soup.find("title").text
+        if "Page Not Found" in title:
+            error_message = "Sorry! The profession " + profession + \
+                " is not in our database!"
+            return error_message
+        else:
+            people = soup.find_all("div", {"class": "name"})
+            result_list = list()
+            for i in range(int(limit)):
+                data = people[i].text
+                person = data.split(",")[0]
+                result = get_birthday(person.strip())
+                result_list.append(result)
 
-        result_list = list()
-        for i in range(int(limit)):
-            data = people[i].text
-            person = data.split(",")[0]
-            result = get_birthday(person.strip())
-            result_list.append(result)
-
-        return result_list
+            return result_list
     except:
         error_message = "Sorry! " + profession + " is not in our database..."
         return error_message
@@ -87,8 +89,9 @@ def search_by_birthsign(birth_sign, limit=5):
     soup = BeautifulSoup(response.content, 'html.parser')
     title = soup.find("title").text
     if "Page Not Found" in title:
-        print("Sorry! The birth sign ", birth_sign,
-              " doesn't exist! Please check if your spelling is correct.")
+        error_message = "Sorry! The birth sign " + birth_sign + \
+            " doesn't exist! Please check if your spelling is correct."
+        return error_message
     else:
         people = soup.find_all("div", {"class": "name"})
 
@@ -106,43 +109,43 @@ def search_by_birthsign(birth_sign, limit=5):
         return result_list
 
 
-def main():
+# def main():
 
-    welcome = '''Welcome to pyBirthdays! Select one of the following options: 
-    (1) Enter a famous person's name
-    (2) Enter a date
-    (3) Enter a profession and a desired number of records to be returned
-    (4) Enter a birth sign and a desired number of records to be returned'''
+#     welcome = '''Welcome to pyBirthdays! Select one of the following options:
+#     (1) Enter a famous person's name
+#     (2) Enter a date
+#     (3) Enter a profession and a desired number of records to be returned
+#     (4) Enter a birth sign and a desired number of records to be returned'''
 
-    print(welcome)
+#     print(welcome)
 
-    option = input()
+#     option = input()
 
-    if option == "1":
-        name = input("Enter a famous person's name to see their birthday: ")
-        result = get_birthday(name)
-        return result
-    elif option == "2":
-        date = input("Enter a date (Month Day): ")
-        result = get_people(date)
-        return result
-    elif option == "3":
-        profession = input("Enter a profession: ")
-        limit = input("Enter the desired number of records: ")
-        result = search_by_profession(profession, limit)
-        return result
-    elif option == "4":
-        birth_sign = input("Enter a birth sign from the following 12: " +
-                           "Aries, Taurus, Gemini, Cancer, Leo, Virgo, Libra, Scorpio, Sagittarius, Capricorn, Aquarius and Pisces.\n")
-        limit = input("Enter the desired number of records: ")
-        result = search_by_birthsign(birth_sign, limit)
-        return result
+#     if option == "1":
+#         name = input("Enter a famous person's name to see their birthday: ")
+#         result = get_birthday(name)
+#         return result
+#     elif option == "2":
+#         date = input("Enter a date (Month Day): ")
+#         result = get_people(date)
+#         return result
+#     elif option == "3":
+#         profession = input("Enter a profession: ")
+#         limit = input("Enter the desired number of records: ")
+#         result = search_by_profession(profession, limit)
+#         return result
+#     elif option == "4":
+#         birth_sign = input("Enter a birth sign from the following 12: " +
+#                            "Aries, Taurus, Gemini, Cancer, Leo, Virgo, Libra, Scorpio, Sagittarius, Capricorn, Aquarius and Pisces.\n")
+#         limit = input("Enter the desired number of records: ")
+#         result = search_by_birthsign(birth_sign, limit)
+#         return result
 
 
-result = main()
+# result = main()
 
-if isinstance(result, list):
-    for elem in result:
-        print(elem)
-else:
-    print(result)
+# if isinstance(result, list):
+#     for elem in result:
+#         print(elem)
+# else:
+#     print(result)

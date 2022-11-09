@@ -9,9 +9,10 @@ verify_ssl = true
 name = "testpypi"
 
 [packages]
-pybirthdayspackage = {version = "==1.0.0", index = "testpypi"}
+pytest = "*"
+pybirthdayspackage = {editable = true, path = "."}
 
 [dev-packages]
 
 [requires]
-python_version = "3.9"
+python_version = "3"

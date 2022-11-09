@@ -9,6 +9,12 @@ Get to know all the famous people who have birthdays on a specific day (birthday
 
 To install, run `pip install -i https://test.pypi.org/simple/ pybirthdayspackage`
 
+## How to Contribute & Use
+
+After installing the above package and the virtual environment (`pipenv shell`), you can run the tests in the project directory by using the following command: `python3 -m pytest`.
+
+To add to your program, simply import this package: `from pybirthdayspackage import pybirthdays`
+
 ## Usage
 
 `get_people(date)` Allow user to input date, return all the famous people who have birthdays on that date

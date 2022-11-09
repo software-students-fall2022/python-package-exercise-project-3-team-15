@@ -25,9 +25,9 @@ To add to your program, simply import this package: `from pybirthdayspackage imp
 
 `search_by_birthsign(birth_sign, limit)` Allow user to input a birth sign and the desired number of outputs, return the top 'x' most popular famous people that have that birth sign and their birthdays
 
-## PyPI Link
+## PyPI
 
-[PyPI](https://test.pypi.org/project/pybirthdayspackage/)
+[Link](https://test.pypi.org/project/pybirthdayspackage/)
 
 ## Team Members
 

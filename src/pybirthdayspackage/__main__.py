@@ -1,4 +1,4 @@
-import pybirthdays as pybirthdays
+import pybirthdayspackage.pybirthdays as pybirthdays
 
 
 def main():
